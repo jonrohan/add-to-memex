@@ -1,0 +1,10 @@
+name: Move to Work Project
+
+on: [push]
+
+jobs:
+  my-pull-requests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Add Issue to project
