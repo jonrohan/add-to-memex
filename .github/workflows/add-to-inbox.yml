@@ -7,4 +7,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Add Issue to project
+      - name: Find my pull requests
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.PAT }}
+          script: |
+            const query = `{
+              viewer {
+                login
+                pullRequests(first: 100, states: OPEN) {
+                  edges {
+                    node {
+                      id
+                    }
+                  }
+                }
+              }
+            }`
+            const result = await github.graphql(query)
+            console.log(result)
