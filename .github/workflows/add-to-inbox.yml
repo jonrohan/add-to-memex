@@ -31,6 +31,8 @@ jobs:
       - name: Add to project
         uses: actions/github-script@v5
         with:
+          env:
+            PROJECT_ID: ${{ secrets.PROJECT_ID }}
           github-token: ${{ secrets.PAT }}
           script: |
             const prIds = ${{steps.pull-requests.outputs.result}};
@@ -43,5 +45,5 @@ jobs:
                     }
                   }
                 }
-              }`, { project: process.secrets.PROJECT_ID, issue: id })
+              }`, { project: process.env.PROJECT_ID, issue: id })
             }
