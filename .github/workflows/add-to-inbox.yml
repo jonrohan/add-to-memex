@@ -1,6 +1,10 @@
 name: Move to Work Project
 
-on: [push]
+on:
+  push:
+  schedule:
+    # runs every 1 hour
+    - cron:  '0 * * * *'
 
 jobs:
   my-pull-requests:
