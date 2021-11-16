@@ -37,13 +37,11 @@ jobs:
           script: |
             const prIds = ${{steps.pull-requests.outputs.result}};
             for (const id of prIds) {
-              await github.graphql(`{
-                mutation($project:ID!,$issue:ID!) {
+              await github.graphql(`mutation($project:ID!,$issue:ID!) {
                   addProjectNextItem(input: {projectId: $project, contentId: $issue}) {
                     projectNextItem {
                       id
                     }
                   }
-                }
-              }`, { project: process.env.PROJECT_ID, issue: id })
+                }`, { project: process.env.PROJECT_ID, issue: id })
             }
