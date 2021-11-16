@@ -30,9 +30,9 @@ jobs:
 
       - name: Add to project
         uses: actions/github-script@v5
+        env:
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
         with:
-          env:
-            PROJECT_ID: ${{ secrets.PROJECT_ID }}
           github-token: ${{ secrets.PAT }}
           script: |
             const prIds = ${{steps.pull-requests.outputs.result}};
