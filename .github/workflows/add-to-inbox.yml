@@ -8,6 +8,7 @@ jobs:
 
     steps:
       - name: Find my pull requests
+        id: pull-requests
         uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.PAT }}
@@ -25,4 +26,11 @@ jobs:
               }
             }`
             const result = await github.graphql(query)
-            console.log(result)
+            return result.viewer.pullRequests
+
+      - name: Add to project
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.PAT }}
+          script: |
+            console.log("${{steps.pull-requests.outputs.result}}")
