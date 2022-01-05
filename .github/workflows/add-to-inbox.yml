@@ -24,13 +24,17 @@ jobs:
                   edges {
                     node {
                       id
+                      headRepositoryOwner {
+                        login
+                      }
                     }
                   }
                 }
               }
             }`
             const result = await github.graphql(query)
-            return result.viewer.pullRequests.edges.map(p => p.node.id )
+            const githubPRs = result.viewer.pullRequests.edges.filter(pr => pr.headRepositoryOwner.login === "github")
+            return githubPRs.map(p => p.node.id )
 
       - name: Add to project
         uses: actions/github-script@v5
