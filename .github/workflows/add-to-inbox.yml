@@ -33,7 +33,6 @@ jobs:
               }
             }`
             const result = await github.graphql(query)
-            console.log(result.viewer.pullRequests.edges)
             const githubPRs = result.viewer.pullRequests.edges.filter(pr => pr.node.headRepositoryOwner.login === "github")
             return githubPRs.map(p => p.node.id )
 
